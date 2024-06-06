@@ -1,5 +1,5 @@
 import express from 'express'
-import bodyParser from 'body-parser'
+import { urlencoded } from 'express';
 import { ethers } from 'ethers';
 import { rateLimit } from 'express-rate-limit';
 // Import JSON files with assertion
@@ -7,7 +7,7 @@ import NFTABI from './constants/NFT.json' assert { type: 'json' };
 import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
 
 const app = express();
-const port = 80;
+const port = 3000;
 
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
 const provider = new ethers.providers.JsonRpcProvider(`https://rpc.gobob.xyz/`)
@@ -18,7 +18,8 @@ const pointCore = "0xCA9c5943Dd7d0fE1E6A0Cf12F2eA65d310A3b2AA";
 const sobCa = new ethers.Contract(sobAddress,NFTABI.abi,wallet);
 const pointCa = new ethers.Contract(pointCore, POINTABI.abi, wallet);
 // Middleware to parse JSON bodies
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(urlencoded({extended:true}))
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
@@ -36,7 +37,8 @@ app.use(limiter);
 
 // Define the POST route
 app.post('/sobHolder', async(req, res) => {
-  const {address} = req.query;
+  console.log(req.body);
+  const {address} = req.body;
   console.log(address);
   const isValidFormat = isValidBytes20Address(address);
   if (!isValidFormat) {
@@ -66,7 +68,8 @@ app.post('/sobHolder', async(req, res) => {
 });
 
 app.post('/rampageInitialized',async(req,res)=>{
-  const {address} = req.query;
+  console.log(req.body);
+  const address = req.body.address;
   console.log(address)
   const isValidFormat = isValidBytes20Address(address);
   if (!isValidFormat) {
