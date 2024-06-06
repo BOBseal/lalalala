@@ -7,8 +7,8 @@ import NFTABI from './constants/NFT.json' assert { type: 'json' };
 import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
 
 const app = express();
-const port = 80;
-const port2 = 443;
+const port = 443;
+
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
 const provider = new ethers.providers.JsonRpcProvider(`https://rpc.gobob.xyz/`)
 const wallet = new ethers.Wallet(burnerkey,provider);
@@ -135,8 +135,4 @@ function isValidBytes20Address(address) {
 
 app.listen(port,'0.0.0.0',() => {
   console.log(`Server is running on port ${port}`);
-});
-
-app.listen(port2,'0.0.0.0',() => {
-  console.log(`Server is running on port ${port2}`);
 });
