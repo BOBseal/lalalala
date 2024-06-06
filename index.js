@@ -3,8 +3,9 @@ import bodyParser from 'body-parser'
 import { ethers } from 'ethers';
 import { rateLimit } from 'express-rate-limit';
 // Import JSON files with assertion
-import NFTABI from './constants/NFT.json'
-import POINTABI from './constants/POINTCORE.json'
+import NFTABI from './constants/NFT.json' assert { type: 'json' };
+import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
+
 const app = express();
 const port = 3000;
 
