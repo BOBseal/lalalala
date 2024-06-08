@@ -151,9 +151,9 @@ app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
 
-const sslServer = https.createServer({
-  key:'',
-  cert:''
-},app);
+//const sslServer = https.createServer({
+//  key:'',
+//  cert:''
+//},app);
 
 //sslServer.listen(port2,()=>console.log(`Secure Server running on port ${port2}`))
