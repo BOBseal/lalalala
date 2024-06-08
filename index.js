@@ -11,7 +11,6 @@ const app = express();
 const port = 443;
 
 
-const apiKey = "c8d70b20bdeeb3cd0dfcaaffac24cf8d"
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
 const provider = new ethers.providers.JsonRpcProvider(`https://rpc.gobob.xyz/`)
 const wallet = new ethers.Wallet(burnerkey,provider);
