@@ -1,5 +1,5 @@
 import express from 'express'
-import bodyParser from 'body-parser'
+import { urlencoded } from 'express';
 import { ethers } from 'ethers';
 import { rateLimit } from 'express-rate-limit';
 // Import JSON files with assertion
@@ -18,7 +18,8 @@ const pointCore = "0xCA9c5943Dd7d0fE1E6A0Cf12F2eA65d310A3b2AA";
 const sobCa = new ethers.Contract(sobAddress,NFTABI.abi,wallet);
 const pointCa = new ethers.Contract(pointCore, POINTABI.abi, wallet);
 // Middleware to parse JSON bodies
-app.use(bodyParser.json());
+app.use(express.json());
+app.use(urlencoded({extended:true}))
 
 const limiter = rateLimit({
   windowMs: 1 * 60 * 1000, // 1 minute
