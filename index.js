@@ -3,12 +3,17 @@ import { urlencoded } from 'express';
 import axios from 'axios';
 import { ethers } from 'ethers';
 import { rateLimit } from 'express-rate-limit';
+import https from 'https'
 // Import JSON files with assertion
 import NFTABI from './constants/NFT.json' assert { type: 'json' };
 import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
 
+
+
 const app = express();
-const port = 443;
+const port = 80;
+
+const port2 = 443;
 
 
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
@@ -142,7 +147,13 @@ function isValidBytes20Address(address) {
   return bytes20Regex.test(address);
 }
 
-
-app.listen(port,'0.0.0.0',() => {
+app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+const sslServer = https.createServer({
+  key:'',
+  cert:''
+},app);
+
+sslServer.listen(port2,()=>console.log(`Secure Server running on port ${port2}`))
