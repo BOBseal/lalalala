@@ -1,5 +1,6 @@
 import express from 'express'
 import { urlencoded } from 'express';
+import axios from 'axios';
 import { ethers } from 'ethers';
 import { rateLimit } from 'express-rate-limit';
 // Import JSON files with assertion
@@ -7,8 +8,10 @@ import NFTABI from './constants/NFT.json' assert { type: 'json' };
 import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
 
 const app = express();
-const port = 80;
+const port = 443;
 
+
+const apiKey = "c8d70b20bdeeb3cd0dfcaaffac24cf8d"
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
 const provider = new ethers.providers.JsonRpcProvider(`https://rpc.gobob.xyz/`)
 const wallet = new ethers.Wallet(burnerkey,provider);
@@ -17,7 +20,11 @@ const pointCore = "0xCA9c5943Dd7d0fE1E6A0Cf12F2eA65d310A3b2AA";
 
 const sobCa = new ethers.Contract(sobAddress,NFTABI.abi,wallet);
 const pointCa = new ethers.Contract(pointCore, POINTABI.abi, wallet);
+
+
+
 // Middleware to parse JSON bodies
+
 app.use(express.json());
 app.use(urlencoded({extended:true}))
 
@@ -135,6 +142,7 @@ function isValidBytes20Address(address) {
   const bytes20Regex = /^0x[0-9a-fA-F]{40}$/;
   return bytes20Regex.test(address);
 }
+
 
 app.listen(port,'0.0.0.0',() => {
   console.log(`Server is running on port ${port}`);
