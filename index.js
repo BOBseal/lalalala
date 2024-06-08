@@ -2,12 +2,14 @@ import express from 'express'
 import { urlencoded } from 'express';
 import { ethers } from 'ethers';
 import { rateLimit } from 'express-rate-limit';
+import https from 'https'
+import fs from 'fs'
 // Import JSON files with assertion
 import NFTABI from './constants/NFT.json' assert { type: 'json' };
 import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
 
 const app = express();
-const port = 8000;
+const port = 80;
 
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
 const provider = new ethers.providers.JsonRpcProvider(`https://rpc.gobob.xyz/`)
@@ -134,6 +136,11 @@ function isValidBytes20Address(address) {
   return bytes20Regex.test(address);
 }
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+const httpsServer = https.createServer({
+  key:fs.readFileSync('/etc/letsencrypt/live/my_api_url/privkey.pem'),
+  cert: fs.readFileSync('/etc/letsencrypt/live/my_api_url/fullchain.pem'),
+}, app);
+
+httpsServer.listen(443,()=>{
+  console.log("on on 443")
+})
