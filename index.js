@@ -136,14 +136,7 @@ function isValidBytes20Address(address) {
   return bytes20Regex.test(address);
 }
 
-const httpsServer = https.createServer({
-  key:fs.readFileSync('/etc/letsencrypt/live/my_api_url/privkey.pem'),
-  cert: fs.readFileSync('/etc/letsencrypt/live/my_api_url/fullchain.pem'),
-}, app);
 
-httpsServer.listen(443,()=>{
-  console.log("on on 443")
-})
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
