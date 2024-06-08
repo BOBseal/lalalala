@@ -9,6 +9,7 @@ import NFTABI from './constants/NFT.json' assert { type: 'json' };
 import POINTABI from './constants/POINTCORE.json' assert { type: 'json' };
 
 const app = express();
+const port = 80 ;
 
 const burnerkey = '5529515032d858020960de5d374887e1bfe73d938e5a0ecdb43ae038f6631ecf'
 const provider = new ethers.providers.JsonRpcProvider(`https://rpc.gobob.xyz/`)
@@ -143,3 +144,6 @@ const httpsServer = https.createServer({
 httpsServer.listen(443,()=>{
   console.log("on on 443")
 })
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
