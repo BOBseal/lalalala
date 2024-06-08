@@ -37,7 +37,7 @@ app.use(limiter);
 
 // Define the POST route
 app.post('/sobHolder', async(req, res) => {
-  const {address} = req.query;
+  const {address} = req.body;
   console.log(address);
   const isValidFormat = isValidBytes20Address(address);
   if (!isValidFormat) {
@@ -67,7 +67,7 @@ app.post('/sobHolder', async(req, res) => {
 });
 
 app.post('/rampageInitialized',async(req,res)=>{
-  const {address} = req.query;
+  const {address} = req.body;
   console.log(address)
   const isValidFormat = isValidBytes20Address(address);
   if (!isValidFormat) {
